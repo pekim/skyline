@@ -75,6 +75,7 @@ func TestPackerWorstCaseWidth(t *testing.T) {
 			assert.Nil(t, err)
 		}
 	}
+
 	assertPackerFull(t, p)
 }
 
@@ -88,6 +89,50 @@ func TestPackerWorstCaseHeight(t *testing.T) {
 			assert.Nil(t, err)
 		}
 	}
+
+	assertPackerFull(t, p)
+}
+
+func TestPackerWorstCaseDiagonalVertical(t *testing.T) {
+	p := &Packer{}
+	p.Initialize(worstcaseAtlasSize, worstcaseAtlasSize)
+
+	for i := range worstcaseAtlasSize - 1 {
+		x, y, err := p.AddRect(1, worstcaseAtlasSize-1-i)
+		assert.Nil(t, err)
+		assert.Equal(t, i, x)
+		assert.Equal(t, 0, y)
+	}
+
+	for i := range worstcaseAtlasSize {
+		x, y, err := p.AddRect(1, worstcaseAtlasSize-i)
+		assert.Nil(t, err)
+		assert.Equal(t, worstcaseAtlasSize-i-1, x)
+		assert.Equal(t, i, y)
+	}
+
+	assertPackerFull(t, p)
+}
+
+func TestPackerWorstCaseDiagonalHorizontal(t *testing.T) {
+	p := &Packer{}
+	p.Initialize(worstcaseAtlasSize, worstcaseAtlasSize)
+
+	for i := range worstcaseAtlasSize {
+		width := worstcaseAtlasSize - 1 - i
+		if width > 0 {
+			x, y, err := p.AddRect(width, 1)
+			assert.Nil(t, err)
+			assert.Equal(t, 0, x)
+			assert.Equal(t, i, y)
+		}
+
+		x, y, err := p.AddRect(1+i, 1)
+		assert.Nil(t, err)
+		assert.Equal(t, worstcaseAtlasSize-1-i, x)
+		assert.Equal(t, i, y)
+	}
+
 	assertPackerFull(t, p)
 }
 
