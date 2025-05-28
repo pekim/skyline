@@ -12,7 +12,7 @@ import (
 const worstcaseAtlasSize = 512
 
 func TestPackerInternalLogic(t *testing.T) {
-	p := &Packer{}
+	p := Packer{}
 	p.Initialize(4, 4)
 
 	add := func(
@@ -43,7 +43,7 @@ func TestPackerInternalLogic(t *testing.T) {
 }
 
 func TestPackerBlogExample(t *testing.T) {
-	p := &Packer{}
+	p := Packer{}
 	p.Initialize(8, 8)
 
 	add := func(width int, height int, expectedX int, expectedY int) {
@@ -66,7 +66,7 @@ func TestPackerBlogExample(t *testing.T) {
 }
 
 func TestPackerWorstCaseWidth(t *testing.T) {
-	p := &Packer{}
+	p := Packer{}
 	p.Initialize(worstcaseAtlasSize, 2)
 
 	for range p.height {
@@ -80,7 +80,7 @@ func TestPackerWorstCaseWidth(t *testing.T) {
 }
 
 func TestPackerWorstCaseHeight(t *testing.T) {
-	p := &Packer{}
+	p := Packer{}
 	p.Initialize(2, worstcaseAtlasSize)
 
 	for range p.height {
@@ -94,7 +94,7 @@ func TestPackerWorstCaseHeight(t *testing.T) {
 }
 
 func TestPackerWorstCaseDiagonalVertical(t *testing.T) {
-	p := &Packer{}
+	p := Packer{}
 	p.Initialize(worstcaseAtlasSize, worstcaseAtlasSize)
 
 	for i := range worstcaseAtlasSize - 1 {
@@ -115,7 +115,7 @@ func TestPackerWorstCaseDiagonalVertical(t *testing.T) {
 }
 
 func TestPackerWorstCaseDiagonalHorizontal(t *testing.T) {
-	p := &Packer{}
+	p := Packer{}
 	p.Initialize(worstcaseAtlasSize, worstcaseAtlasSize)
 
 	for i := range worstcaseAtlasSize {
@@ -136,7 +136,7 @@ func TestPackerWorstCaseDiagonalHorizontal(t *testing.T) {
 	assertPackerFull(t, p)
 }
 
-func assertPackerFull(t *testing.T, p *Packer) {
+func assertPackerFull(t *testing.T, p Packer) {
 	t.Helper()
 
 	for i := range p.skylineCount {
