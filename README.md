@@ -1,5 +1,7 @@
 # skyline
 
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/pekim/skyline)](https://pkg.go.dev/github.com/pekim/skyline)
+
 skyline implements the skyline algorithm for packing 2D rectangles.
 
 ## Acknowledgment
