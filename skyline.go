@@ -12,10 +12,12 @@ type point struct {
 }
 
 /*
-Packer ... TODO
+Packer implements the skyline algorithm for packing 2D rectangles.
+
+The Initialize method must be called before adding rectangles with AddRect.
 
 Packer is based on https://jvernay.fr/en/blog/skyline-2d-packer/implementation/.
-C implementation can be found at https://git.sr.ht/~jvernay/JV/tree/main/item/src/jv_pack2d
+The original C implementation can be found at https://git.sr.ht/~jvernay/JV/tree/main/item/src/jv_pack2d
 */
 type Packer struct {
 	width        int
@@ -24,6 +26,12 @@ type Packer struct {
 	skylineCount int
 }
 
+/*
+Initialize prepares the Packer.
+
+The width and height define the size of the rectangle in to which
+rectangles will be packed.
+*/
 func (p *Packer) Initialize(width int, height int) {
 	p.width = width
 	p.height = height
@@ -33,9 +41,19 @@ func (p *Packer) Initialize(width int, height int) {
 	p.skyline = []point{{x: 0, y: 0}}
 }
 
-func (p *Packer) AddRect(width int, height int) (int, int, error) {
+/*
+AddRect adds a rectangle to the Packer.
+
+If the Packer has space for the new rectangle, its location is returned.
+The returned x and y are the location of the bottom left point of the added rectangle.
+
+If there is no available space for the rectangle an error is returned.
+
+If the Packer has not been initialized (with a call to Initialize) an error will be returned.
+*/
+func (p *Packer) AddRect(width int, height int) (x int, y int, err error) {
 	if p.skyline == nil || p.width == 0 || p.height == 0 {
-		return 0, 0, errors.New("skyline packer is unitialised")
+		return 0, 0, errors.New("packer is unitialised")
 	}
 
 	// Stores the best candidate so far.
@@ -85,13 +103,13 @@ func (p *Packer) AddRect(width int, height int) (int, int, error) {
 		return 0, 0, errors.New("no space available")
 	}
 	if idxBest >= idxBest2 {
-		panic(fmt.Sprintf("idxBest >= idBest2 : %d >= %d", idxBest, idxBest2))
+		panic(fmt.Sprintf("internal error : idxBest >= idBest2 : %d >= %d", idxBest, idxBest2))
 	}
 	if idxBest2 <= 0 {
-		panic(fmt.Sprintf("idxBest2 <= 0 : %d <= 0", idxBest2))
+		panic(fmt.Sprintf("internal error : idxBest2 <= 0 : %d <= 0", idxBest2))
 	}
 
-	// We replace the points overshadowed by the current rect, by new points.
+	// Replace the points overshadowed by the current rect, by new points.
 
 	removedCount := idxBest2 - idxBest
 
