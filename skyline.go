@@ -6,14 +6,9 @@ import (
 	"math"
 )
 
-// Value to use in point.next to indicate end of a list.
-const nextNone = -1
-
 type point struct {
 	x int
 	y int
-	// The index of the next point in a linked list
-	next *point
 }
 
 /*
@@ -154,6 +149,9 @@ func (p *Packer) AddRect(width int, height int) (int, int, error) {
 
 	p.skyline[idxBest] = newTopLeft
 	if bottomRightPoint {
+		for len(p.skyline) < p.skylineCount {
+			p.skyline = append(p.skyline, point{})
+		}
 		p.skyline[idxBest+1] = newBottomRight
 	}
 
