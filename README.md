@@ -1,6 +1,7 @@
 # skyline
 
 [![PkgGoDev](https://pkg.go.dev/badge/github.com/pekim/skyline)](https://pkg.go.dev/github.com/pekim/skyline)
+[![golangci-lint](https://github.com/pekim/skyline/actions/workflows/golangci-lint.yml/badge.svg)](https://github.com/pekim/skyline/actions/workflows/golangci-lint.yml)
 
 skyline implements the skyline algorithm for packing 2D rectangles.
 
