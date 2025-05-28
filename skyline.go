@@ -130,6 +130,9 @@ func (p *Packer) AddRect(width int, height int) (int, int, error) {
 		idx := p.skylineCount - 1
 		idx2 := idx + (insertedCount - removedCount)
 		for idx >= idxBest2 {
+			for len(p.skyline) < idx2+1 {
+				p.skyline = append(p.skyline, point{})
+			}
 			p.skyline[idx2] = p.skyline[idx]
 			idx--
 			idx2--
