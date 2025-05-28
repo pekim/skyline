@@ -137,6 +137,8 @@ func TestPackerWorstCaseDiagonalHorizontal(t *testing.T) {
 }
 
 func assertPackerFull(t *testing.T, p *Packer) {
+	t.Helper()
+
 	for i := range p.skylineCount {
 		assert.Equal(t, p.height, p.skyline[i].y)
 	}
