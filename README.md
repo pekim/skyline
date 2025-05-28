@@ -8,10 +8,10 @@ skyline implements the skyline algorithm for packing 2D rectangles.
 ## Acknowledgment
 
 Most of the implementation is a Go port of jvernay's
-https://git.sr.ht/~jvernay/JV/tree/main/item/src/jv_pack2d.
-The article at
-https://jvernay.fr/en/blog/skyline-2d-packer/implementation/.
-describes the code.
+[jv_pack2d](https://git.sr.ht/~jvernay/JV/tree/main/item/src/jv_pack2d).
+There is a corresponding
+[implementation article](https://jvernay.fr/en/blog/skyline-2d-packer/implementation/)
+that describes the code.
 
 That code was placed in the [public domain](https://unlicense.org/) by jvernay.
 
