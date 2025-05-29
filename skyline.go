@@ -1,7 +1,6 @@
 package skyline
 
 import (
-	"errors"
 	"fmt"
 	"math"
 )
@@ -53,7 +52,7 @@ If the Packer has not been initialized (with a call to Initialize) an error will
 */
 func (p *Packer) AddRect(width int, height int) (x int, y int, err error) {
 	if p.skyline == nil || p.width == 0 || p.height == 0 {
-		return 0, 0, errors.New("packer is unitialised")
+		return 0, 0, NotInitialized{}
 	}
 
 	// Stores the best candidate so far.
@@ -100,13 +99,13 @@ func (p *Packer) AddRect(width int, height int) (x int, y int, err error) {
 	}
 
 	if idxBest == math.MaxInt {
-		return 0, 0, errors.New("no space available")
+		return 0, 0, NoSpace{}
 	}
 	if idxBest >= idxBest2 {
-		panic(fmt.Sprintf("internal error : idxBest >= idBest2 : %d >= %d", idxBest, idxBest2))
+		return 0, 0, InternalError(fmt.Sprintf("internal error : idxBest >= idBest2 : %d >= %d", idxBest, idxBest2))
 	}
 	if idxBest2 <= 0 {
-		panic(fmt.Sprintf("internal error : idxBest2 <= 0 : %d <= 0", idxBest2))
+		return 0, 0, InternalError(fmt.Sprintf("internal error : idxBest2 <= 0 : %d <= 0", idxBest2))
 	}
 
 	// Replace the points overshadowed by the current rect, by new points.

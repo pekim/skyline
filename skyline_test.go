@@ -136,6 +136,22 @@ func TestPackerWorstCaseDiagonalHorizontal(t *testing.T) {
 	assertPackerFull(t, p)
 }
 
+func TestPackerNotInitialized(t *testing.T) {
+	p := Packer{}
+	_, _, err := p.AddRect(1, 1)
+	assert.ErrorAs(t, err, &NotInitialized{})
+}
+
+func TestPackerNoSpace(t *testing.T) {
+	p := Packer{}
+	p.Initialize(3, 3)
+
+	_, _, err := p.AddRect(2, 2)
+	assert.Nil(t, err)
+	_, _, err = p.AddRect(2, 2)
+	assert.ErrorAs(t, err, &NoSpace{})
+}
+
 func assertPackerFull(t *testing.T, p Packer) {
 	t.Helper()
 
